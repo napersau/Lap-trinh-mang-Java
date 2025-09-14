@@ -1,4 +1,4 @@
-package mmt.sXQ9VVEf;
+package sXQ9VVEf;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -12,7 +12,8 @@ public class sXQ9VVEf {
         String host = "203.162.10.109";
         int port = 2206;
 
-        try (Socket socket = new Socket(host, port)) {
+        try {
+            Socket socket = new Socket(host, port);
             BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             OutputStream os = socket.getOutputStream();
 
@@ -59,11 +60,11 @@ public class sXQ9VVEf {
             os.flush();
             System.out.println("Sent result: " + key.trim());
 
-            // 👉 Không đọc thêm từ server nữa
+            // Đóng luồng theo thứ tự
             os.close();
-            
+            br.close();
             socket.close();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
