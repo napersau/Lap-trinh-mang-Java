@@ -27,21 +27,20 @@ public class FQpunH66 {
         int number = is.readInt();
         System.out.println("Received: " + number);
 
-        // c. Chuyển đổi số nguyên nhận được sang hai hệ cơ số 8 và 16
-        
+        // c. Chuyển đổi số nguyên nhận được sang hai hệ cơ số 8 và 16        
         // Tính toán để debug
         String octal = Integer.toOctalString(number);
         String hex = Integer.toHexString(number).toUpperCase();
         
         // Gửi hệ 8 trước
-        os.writeUTF(octal);
+        os.writeUTF(octal + ";" + hex);
         os.flush();
         System.out.println("Sent octal: " + octal);
         
         // Gửi hệ 16 sau
-        os.writeUTF(hex);
-        os.flush();
-        System.out.println("Sent hex: " + hex);
+        // os.writeUTF(hex);
+        // os.flush();
+        // System.out.println("Sent hex: " + hex);
 
         // d. Đóng kết nối và kết thúc chương trình
         os.close();

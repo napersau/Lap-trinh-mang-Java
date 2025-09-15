@@ -1,6 +1,7 @@
 package sXQ9VVEf;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
@@ -14,7 +15,7 @@ public class sXQ9VVEf {
 
         try {
             Socket socket = new Socket(host, port);
-            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            InputStream is = socket.getInputStream();
             OutputStream os = socket.getOutputStream();
 
             // a. Gửi mã SV và qCode
@@ -24,11 +25,14 @@ public class sXQ9VVEf {
             System.out.println("Sent: " + sendStr.trim());
 
             // b. Nhận chuỗi số
-            String numbersStr = br.readLine();
-            System.out.println("Received: " + numbersStr);
+            byte[] buffer = new byte[1024];
+            int byteRead = is.read(buffer);
+            
+            String data = new String(buffer,0,byteRead);
+            System.out.println("Received: " + data);
 
             // c. Xử lý
-            String[] arrS = numbersStr.split(",");
+            String[] arrS = data.split(",");
             int[] arr = new int[arrS.length];
             int sum = 0;
             for (int i = 0; i < arrS.length; i++) {
@@ -62,7 +66,7 @@ public class sXQ9VVEf {
 
             // Đóng luồng theo thứ tự
             os.close();
-            br.close();
+            is.close();
             socket.close();
 
         } catch (Exception e) {

@@ -32,43 +32,38 @@ public class rBccllgw {
             return;
         }
         
-        StringBuilder strS = new StringBuilder(receivedData);
-        System.out.println("Receipted: " + strS);
-
-        String str = strS.reverse().toString();
-
+        System.out.println("Received: " + receivedData);
+        String []s = receivedData.split("\\s+");
         String key = "";
-        int i = 0;
-        int n = str.length();
-        
-        while(i < n){
-            if(str.charAt(i) == ' ') {
-                key += " ";
-                i++;
-            } else {
-                int cnt = 1;
-                char currentChar = str.charAt(i);
-                
-                // Count consecutive characters
-                while(i + 1 < n && str.charAt(i) == str.charAt(i + 1)) {
-                    i++;
-                    cnt++;
+
+        for(int i = 0; i < s.length; i++){
+            String tmp = new StringBuilder(s[i]).reverse().toString();
+            String tmp1 = "";
+            int cnt = 1;
+            for(int j = 0; j < tmp.length() - 1; j++){
+                if(tmp.charAt(j) == tmp.charAt(j + 1)) cnt++;
+                else {
+                    if(cnt == 1) {
+                        tmp1 += tmp.charAt(j);
+                        continue;
+                    }
+                    tmp1 += tmp.charAt(j) + (cnt + "");
+                    cnt = 1;
                 }
-                
-                // Only add count if > 1
-                if(cnt > 1) {
-                    key += currentChar + "" + cnt;
-                } else {
-                    key += currentChar;
-                }
-                i++;
             }
+            if(cnt == 1) {
+                tmp1 += tmp.charAt(s[i].length() - 1);
+            }
+            else tmp1 += tmp.charAt(s[i].length() - 1) + (cnt + "");
+            key += tmp1 + " ";
+
         }
+
         
-        bw.write(key);
+        bw.write(key.trim());
         bw.newLine(); // Add newline character
         bw.flush();
-        System.out.println("Sent: " + key);
+        System.out.println("Sent: " + key.trim());
         
         bw.close();
         br.close();
