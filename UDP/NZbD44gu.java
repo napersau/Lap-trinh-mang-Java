@@ -12,7 +12,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 public class NZbD44gu {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         String host = "203.162.10.109";
         int port = 2209;
 
